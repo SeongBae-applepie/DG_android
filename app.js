@@ -12,6 +12,12 @@ app.use('/api', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 const SERVER_URL = process.env.SERVER_URL;
+
+
+app.get('/get', (req, res) => {
+  res.json({ message: 'GET 요청 성공!' });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on ${SERVER_URL}:${PORT}`);
 });
