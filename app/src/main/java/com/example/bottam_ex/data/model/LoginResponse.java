@@ -1,12 +1,15 @@
 package com.example.bottam_ex.data.model;
 
 public class LoginResponse {
-    public String accessToken;
-    private String token;
-    public String refreshToken;
+    private String accessToken;
+    private String refreshToken;
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
 }

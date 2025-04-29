@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.bottam_ex.main.MainActivity;
 import com.example.bottam_ex.ui.login.LoginActivity;
 
+
+
 public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

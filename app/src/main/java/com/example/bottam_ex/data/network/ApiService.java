@@ -1,5 +1,6 @@
 package com.example.bottam_ex.data.network;
 
+import com.example.bottam_ex.data.model.CheckEmailResponse;
 import com.example.bottam_ex.data.model.LoginRequest;
 import com.example.bottam_ex.data.model.LoginResponse;
 import com.example.bottam_ex.data.model.TokenResponse;
@@ -26,4 +27,14 @@ public interface ApiService {
 
     @GET("/api/profile")
     Call<User> getProfile(@Header("Authorization") String token);
+
+    @POST("/api/check-email")
+    Call<CheckEmailResponse> checkEmail(@Body Map<String, String> body);
+
+    @POST("/api/m/send-verification")
+    Call<ResponseBody> sendVerification(@Body Map<String, String> body);
+
+    @POST("/api/m/verify-code")
+    Call<ResponseBody> verifyCode(@Body Map<String, String> body);
 }
+

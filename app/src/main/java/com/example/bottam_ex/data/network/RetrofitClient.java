@@ -6,6 +6,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
+
+    public static String SERVER_URL = "https://aidoctorgreen.com";
     private static Retrofit retrofit = null;
 
     public static Retrofit getInstance() {
@@ -19,7 +21,7 @@ public class RetrofitClient {
                     .build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.23:3000/") // 로컬 서버 주소
+                    .baseUrl(SERVER_URL) // 로컬 서버 주소
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

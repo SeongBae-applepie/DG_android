@@ -66,6 +66,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                    SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
+
+                    // 🚀 서버 응답으로 받은 토큰 가져오기
+                    String accessToken = response.body().getAccessToken();
+                    String refreshToken = response.body().getRefreshToken();
+
+                    // 🚀 SharedPreferences에 저장
+                    prefs.edit()
+                            .putString("access_token", accessToken)
+                            .putString("refresh_token", refreshToken)
+                            .apply();
+
+                    // 🚀 저장한 accessToken을 Intent로 넘김
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.putExtra("access_token", accessToken);
+
+                    startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                 }

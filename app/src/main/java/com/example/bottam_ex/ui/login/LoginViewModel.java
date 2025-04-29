@@ -28,7 +28,7 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    callback.onResult(response.body().getToken(), null);
+                    callback.onResult(response.body().getAccessToken(), null);
                 } else {
                     callback.onResult(null, "로그인 실패: 이메일 또는 비밀번호가 틀립니다.");
                 }
