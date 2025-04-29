@@ -139,4 +139,27 @@ router.post('/logout', verifyToken, async (req, res) => {
   }
 });
 
+
+// email-check
+router.post('/check-email', async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: '이메일을 입력하세요.' });
+  }
+
+  try {
+    const [rows] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
+
+    if (rows.length > 0) {
+      return res.json({ isDuplicate: true });
+    } else {
+      return res.json({ isDuplicate: false });
+    }
+  } catch (err) {
+    console.error('이메일 중복 확인 오류:', err.message);
+    return res.status(500).json({ message: '서버 오류' });
+  }
+});
+
 module.exports = router;
