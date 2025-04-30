@@ -20,20 +20,6 @@ redis.on('error', (err) => {
 });	
 
 
-
-// 이메일 발송 함수
-async function sendVerificationEmail(to, code) {
-  const mailOptions = {
-    from: '"AI Doctor Green" <no-reply@aidoctorgreen.com>',
-    to,
-    subject: '이메일 인증 코드',
-    text: `인증 코드: ${code}`,
-    html: `<h1>인증 코드: ${code}</h1>`,
-  };
-
-  return transporter.sendMail(mailOptions);
-}
-
 // ✅ 인증 메일 발송 API
 router.post('/send-verification', async (req, res) => {
   const { email } = req.body;
@@ -50,6 +36,7 @@ router.post('/send-verification', async (req, res) => {
 	try {
   		await redis.setex(`verify:${email}`, 300, code);
   		console.log(`[send-verification] 인증 코드 저장 완료: verify:${email}`);
+		await sendVerificationEmail(email, code); 
 	}catch (err) {
   		console.error(`[send-verification] Redis 저장 실패:`, err);
 	}
@@ -59,6 +46,7 @@ router.post('/send-verification', async (req, res) => {
     return res.status(500).json({ message: '메일 발송 중 오류 발생' });
   }
 });
+
 
 // ✅ 인증 코드 검증 API
 router.post('/verify-code', async (req, res) => {
