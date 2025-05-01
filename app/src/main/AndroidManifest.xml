@@ -29,6 +29,14 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.findEmail.FindEmailActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.reserpassword.ResetPasswordActivity"
+            android:exported="true"/>
+
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
 

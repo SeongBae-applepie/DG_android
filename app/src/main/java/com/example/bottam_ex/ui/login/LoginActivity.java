@@ -17,6 +17,8 @@ import com.example.bottam_ex.data.model.User;
 import com.example.bottam_ex.data.network.ApiService;
 import com.example.bottam_ex.data.network.RetrofitClient;
 import com.example.bottam_ex.main.MainActivity;
+import com.example.bottam_ex.ui.findEmail.FindEmailActivity;
+import com.example.bottam_ex.ui.reserpassword.ResetPasswordActivity;
 import com.example.bottam_ex.ui.singup.SingupActivity;
 
 import java.util.HashMap;
@@ -30,7 +32,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailField, passwordField;
     private Button loginButton;
-    private TextView signupText;
+    private TextView signupText, findEmailText, resetPasswordText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,25 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.editTextPassword);
         loginButton = findViewById(R.id.buttonLogin);
         signupText = findViewById(R.id.textViewSignUp);
+        findEmailText = findViewById(R.id.textFindEmail);
+        resetPasswordText = findViewById(R.id.textResetPassword);
 
+        // 로그인 시도
         loginButton.setOnClickListener(v -> attemptLogin());
 
+        // 회원가입 화면으로 이동
         signupText.setOnClickListener(v -> {
             startActivity(new Intent(this, SingupActivity.class));
+        });
+
+        // 아이디(이메일) 찾기 화면으로 이동
+        findEmailText.setOnClickListener(v -> {
+            startActivity(new Intent(this, FindEmailActivity.class));
+        });
+
+        // 비밀번호 재설정 화면으로 이동
+        resetPasswordText.setOnClickListener(v -> {
+            startActivity(new Intent(this, ResetPasswordActivity.class));
         });
     }
 
@@ -68,21 +85,16 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                     SharedPreferences prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
 
-                    // 🚀 서버 응답으로 받은 토큰 가져오기
                     String accessToken = response.body().getAccessToken();
                     String refreshToken = response.body().getRefreshToken();
 
-                    // 🚀 SharedPreferences에 저장
                     prefs.edit()
                             .putString("access_token", accessToken)
                             .putString("refresh_token", refreshToken)
                             .apply();
 
-                    // 🚀 저장한 accessToken을 Intent로 넘김
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.putExtra("access_token", accessToken);
-
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
@@ -96,3 +108,4 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 }
+
