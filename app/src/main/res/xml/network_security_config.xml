@@ -3,4 +3,9 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.0.23</domain>
     </domain-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">ncpms.rda.go.kr</domain>
+    </domain-config>
 </network-security-config>
+

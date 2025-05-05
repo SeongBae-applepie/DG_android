@@ -37,5 +37,11 @@ public interface ApiService {
 
     @POST("/api/m/verify-code")
     Call<ResponseBody> verifyCode(@Body Map<String, String> body);
+
+
+    //reset-password
+
+    @POST("/api/reset-password")
+    Call<ResponseBody> resetPassword(@Body Map<String, String> body);
 }
 
