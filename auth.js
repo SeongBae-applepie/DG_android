@@ -3,15 +3,23 @@ const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
+const Redis = require('ioredis');
+const redis = new Redis();
 const router = express.Router();
 
 // POST /api/signup
 router.post('/signup', async (req, res) => {
   const { email, password } = req.body;
-
+  console.log("post-signup 호출");
   try {
     if (!email || !password || !validator.isEmail(email) || !validator.isLength(password, { min: 6 })) {
       return res.status(400).json({ message: '유효한 이메일과 6자 이상 비밀번호를 입력해주세요.' });
+    }
+
+    // ✅ 이메일 인증 여부 확인
+    const verified = await redis.get(`verify:${email}`);
+    if (verified !== 'verified') {
+      return res.status(403).json({ message: '이메일 인증을 먼저 완료해주세요.' });
     }
 
     const [existing] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
@@ -22,12 +30,16 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     await db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashedPassword]);
 
+    // ✅ 인증 상태 삭제 (선택)
+    await redis.del(`verify:${email}`);
+
     return res.status(201).json({ message: '회원가입이 완료되었습니다.' });
   } catch (err) {
     console.error('회원가입 오류:', err.message, err.stack);
     return res.status(500).json({ message: '서버 오류가 발생했습니다.' });
   }
 });
+
 
 // POST /api/login
 router.post('/login', async (req, res) => {
@@ -159,6 +171,43 @@ router.post('/check-email', async (req, res) => {
   } catch (err) {
     console.error('이메일 중복 확인 오류:', err.message);
     return res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+
+
+// POST /api/reset-password
+router.post('/reset-password', async (req, res) => {
+  const { email, newPassword } = req.body;
+  console.log(`🔐 Reset Password 요청: email=${email}, newPassword=${newPassword}`);
+
+  try {
+    if (!email || !newPassword || !validator.isEmail(email) || !validator.isLength(newPassword, { min: 6 })) {
+      return res.status(400).json({ message: '유효한 이메일과 6자 이상 새 비밀번호를 입력해주세요.' });
+    }
+
+    // Redis에서 이메일 인증 여부 확인
+    const verified = await redis.get(`verify:${email}`);
+    if (verified !== 'verified') {
+      return res.status(403).json({ message: '이메일 인증이 필요합니다.' });
+    }
+
+    const [users] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
+    const user = users[0];
+    if (!user) {
+      return res.status(404).json({ message: '등록되지 않은 이메일입니다.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await db.query('UPDATE users SET password = ?, refresh_token = NULL WHERE email = ?', [hashedPassword, email]);
+
+    // 인증 키 삭제: 재사용 방지
+    await redis.del(`verify:${email}`);
+
+    return res.status(200).json({ message: '비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.' });
+  } catch (err) {
+    console.error('비밀번호 재설정 오류:', err.message, err.stack);
+    return res.status(500).json({ message: '서버 오류가 발생했습니다.' });
   }
 });
 

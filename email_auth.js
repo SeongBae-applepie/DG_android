@@ -72,7 +72,8 @@ router.post('/verify-code', async (req, res) => {
 
     await redis.del(`verify:${email}`);
     console.log(`[verify-code] 인증 성공 및 코드 삭제: verify:${email}`);
-
+    await redis.set(`verify:${email}`, 'verified', 'EX', 600); // 인증 완료 표시 (10분 유효)
+    
     return res.status(200).json({ message: '인증이 완료되었습니다!' });
   } catch (error) {
     console.error('[verify-code] 인증 과정 오류:', error);
