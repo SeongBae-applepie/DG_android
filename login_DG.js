@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
-const db = require('./db');
+const db = require('./db_DG');
 const router = express.Router();
 
 // POST /api/login

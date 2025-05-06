@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
-const db = require('./db');
+const db = require('./db_DG');
 const jwt = require('jsonwebtoken');
 const Redis = require('ioredis');
 const redis = new Redis();

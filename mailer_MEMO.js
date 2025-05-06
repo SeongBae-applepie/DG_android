@@ -1,4 +1,4 @@
-// mailer.js
+// mailer_MEMO
 const nodemailer = require('nodemailer');
 require('dotenv').config(); // 반드시 env 읽기
 
@@ -15,9 +15,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendVerificationEmail(to, code) {
+async function sendVerificationEmail_memo(to, code) {
   const mailOptions = {
-    from: `"AI Doctor Green" <no-reply@aidoctorgreen.com>`,
+    from: `"MEMODRO" <no-reply@aidoctorgreen.com>`,
     to,
     subject: '이메일 인증 코드',
     text: `인증 코드: ${code}`,
@@ -27,4 +27,4 @@ async function sendVerificationEmail(to, code) {
   return transporter.sendMail(mailOptions);
 }
 
-module.exports = { sendVerificationEmail };
+module.exports = { sendVerificationEmail_memo };

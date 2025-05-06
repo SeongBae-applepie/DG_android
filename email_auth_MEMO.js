@@ -7,10 +7,10 @@ const nodemailer = require('nodemailer');
 const router = express.Router();
 const redis = new Redis();
 
-const { sendVerificationEmail } = require('./mailer');
+//메일 전송 및 설정
+const { sendVerificationEmail_memo } = require('./mailer_MEMO');
 
-
-// ✅ Redis 연결 확인용 디버깅 코드
+// Redis 연결 확인용 디버깅 코드
 redis.on('connect', () => {
   console.log('[Redis] 연결 성공!');
 });
@@ -20,7 +20,7 @@ redis.on('error', (err) => {
 });	
 
 
-// ✅ 인증 메일 발송 API
+// POST /memo/api/send-verification
 router.post('/send-verification', async (req, res) => {
   const { email } = req.body;
   console.log(`[send-verification] 요청 수신: email=${email}`);
@@ -36,7 +36,7 @@ router.post('/send-verification', async (req, res) => {
 	try {
   		await redis.setex(`verify:${email}`, 300, code);
   		console.log(`[send-verification] 인증 코드 저장 완료: verify:${email}`);
-		await sendVerificationEmail(email, code); 
+		await sendVerificationEmail_memo(email, code); 
 	}catch (err) {
   		console.error(`[send-verification] Redis 저장 실패:`, err);
 	}
@@ -48,7 +48,7 @@ router.post('/send-verification', async (req, res) => {
 });
 
 
-// ✅ 인증 코드 검증 API
+// POST /memo/api/verify-code
 router.post('/verify-code', async (req, res) => {
   const { email, code } = req.body;
   console.log(`[verify-code] 요청 수신: email=${email}, code=${code}`);
