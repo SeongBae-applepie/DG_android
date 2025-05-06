@@ -16,6 +16,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendVerificationEmail_dg(to, code) {
+  console.log(`코드 : ${code}`);
   const mailOptions = {
     from: `"AI Doctor Green" <no-reply@aidoctorgreen.com>`,
     to,
