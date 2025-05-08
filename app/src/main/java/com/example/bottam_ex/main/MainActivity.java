@@ -25,15 +25,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = getSharedPreferences("APP_PREFS", MODE_PRIVATE);
-        String token = sharedPreferences.getString("access_token", null);
-
-        if (token == null) {
-            // Redirect to login activity if not logged in
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish(); // Prevent user from returning to MainActivity without logging in
-            return;
-        }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

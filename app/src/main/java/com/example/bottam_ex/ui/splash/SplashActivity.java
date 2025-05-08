@@ -33,8 +33,8 @@ public class SplashActivity extends AppCompatActivity {
         String accessToken = prefs.getString("access_token", null);
         String refreshToken = prefs.getString("refresh_token", null);
 
-        Log.d("Splash", "Stored accessToken: " + accessToken);
-        Log.d("Splash", "Stored refreshToken: " + refreshToken);
+        Log.d("Splash_t", "Stored accessToken: " + accessToken);
+        Log.d("Splash_t", "Stored refreshToken: " + refreshToken);
 
         if (accessToken != null) {
             checkAccessToken(accessToken, refreshToken);
@@ -48,11 +48,11 @@ public class SplashActivity extends AppCompatActivity {
         api.getProfile("Bearer " + token).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d("Splash", "Access token profile check response: " + response.code());
-                if (response.isSuccessful()) {
+                Log.d("Splash_c", "Access token profile check response: " + response.code());
+                if (response.isSuccessful()) {//엑세스 있음 + 리프레쉬 있음 -> 엑세스 있어서 그냥 넘어감
                     goToMain();
-                } else if (response.code() == 401 && refreshToken != null) {
-                    Log.d("Splash", "Access token expired. Attempting refresh...");
+                } else if ((response.code() == 401 || response.code() == 403) && refreshToken != null) {
+                    Log.d("Splash_c", "Access token expired. Attempting refresh...");
                     attemptRefreshToken(refreshToken);
                 } else {
                     goToLogin();
@@ -80,7 +80,7 @@ public class SplashActivity extends AppCompatActivity {
                 Log.d("Splash", "Refresh token response code: " + response.code());
                 if (response.isSuccessful() && response.body() != null) {
                     String newAccessToken = response.body().accessToken;
-                    prefs.edit().putString("access_token", newAccessToken).apply();
+                    prefs.edit().putString("access_token", newAccessToken).commit();
                     Log.d("Splash", "New access token saved: " + newAccessToken);
                     goToMain();
                 } else {

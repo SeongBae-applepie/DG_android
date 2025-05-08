@@ -120,7 +120,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 requestBody.put("email", email);
                 requestBody.put("newPassword", newPassword);
 
-                ApiService api = RetrofitClient.getInstance().create(ApiService.class);ss
+                ApiService api = RetrofitClient.getInstance().create(ApiService.class);
                 api.resetPassword(requestBody).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

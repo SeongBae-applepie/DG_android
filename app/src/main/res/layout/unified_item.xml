@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="12dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="썸네일 이미지" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cropText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="작물명"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/korText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="병해명"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/oprText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="영문명"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/divText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구분"
+            android:textSize="13sp"
+            android:textColor="#666666" />
+    </LinearLayout>
+</LinearLayout>

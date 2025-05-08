@@ -20,7 +20,6 @@ public interface ApiService {
     @POST("/api/signup")
     Call<ResponseBody> signup(@Body Map<String, String> body);
 
-
     @POST("/api/login")
     Call<LoginResponse> login(@Body LoginRequest request);
     @POST("/api/refresh")
@@ -37,9 +36,6 @@ public interface ApiService {
 
     @POST("/api/m/verify-code")
     Call<ResponseBody> verifyCode(@Body Map<String, String> body);
-
-
-    //reset-password
 
     @POST("/api/reset-password")
     Call<ResponseBody> resetPassword(@Body Map<String, String> body);
