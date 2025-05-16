@@ -13,6 +13,8 @@ public class ApiResponse {
     public Map<String, List<UnifiedSearchInfo>> items;
 
     public static class ServiceWrapper {
+        @SerializedName("totalCount")
+        public int totalCount;
         @SerializedName("list")
         public List<UnifiedSearchInfo> list;
     }

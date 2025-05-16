@@ -1,5 +1,6 @@
 package com.example.bottam_ex.main.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,12 @@ public class DashboardFragment extends Fragment {
     private TextView statusText;
     private static final String API_KEY = "2025d70aa9a8d35aba68e74d477c42500c74";
 
+    private int currentPage = 1;
+    private int totalCount = 0;
+    private boolean isLoading = false;
+    private final int PAGE_SIZE = 50;
+    private String query = "";
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
@@ -56,14 +63,38 @@ public class DashboardFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        searchButton.setOnClickListener(v -> {
-            String query = inputField.getText().toString().trim();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-            if (!query.isEmpty()) {
-                InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(inputField.getWindowToken(), 0);
-                searchUnified(query);
+                if (!isLoading && manager != null &&
+                        manager.findLastCompletelyVisibleItemPosition() == dataList.size() - 1 &&
+                        dataList.size() < totalCount) {
+
+                    currentPage++;
+                    loadData(query, currentPage);
+                }
             }
+        });
+
+        searchButton.setOnClickListener(v -> {
+            query = inputField.getText().toString().trim();
+            if (!query.isEmpty()) {
+                currentPage = 1;
+                totalCount = 0;
+                dataList.clear();
+                adapter.notifyDataSetChanged();
+                loadData(query, currentPage);
+            }
+        });
+
+        adapter.setOnItemClickListener(item -> {
+            Intent intent = new Intent(getContext(), DetailActivity.class);
+            intent.putExtra("detailUrl", item.detailUrl);
+            Log.d("detailUrl", item.detailUrl);
+            startActivity(intent);
         });
 
         return root;
@@ -104,4 +135,38 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+
+    private void loadData(String keyword, int page) {
+        isLoading = true;
+        int startPoint = 1 + (page - 1) * PAGE_SIZE;
+
+        NcpmsApi api = ApiClient.getApi();
+        Call<ApiResponse> call = api.searchUnified(
+                API_KEY, "SVC16", "AA003:JSON", keyword, PAGE_SIZE, startPoint
+        );
+
+        call.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                isLoading = false;
+
+                if (response.isSuccessful() && response.body() != null && response.body().service != null) {
+                    List<UnifiedSearchInfo> results = response.body().service.list;
+                    totalCount = response.body().service.totalCount;
+                    if (results != null) {
+                        dataList.addAll(results);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                isLoading = false;
+            }
+        });
+    }
+
+
+
 }

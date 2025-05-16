@@ -7,4 +7,28 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Alert Colors -->
+    <color name="color_alert_safe">#FFA18D</color>      <!-- 안전안내문자 -->
+    <color name="color_alert_warning">#FFD453</color>   <!-- 경보 -->
+
+    <!-- Green Palette -->
+    <color name="green_primary">#6DB36F</color>         <!-- 메인 그린 -->
+    <color name="green_secondary">#A7D7A7</color>
+    <color name="green_tertiary">#A8BA91</color>
+    <color name="green_background_light">#D4F2B4</color>
+    <color name="green_deep">#3E7042</color>            <!-- 버튼 강조용 -->
+
+    <color name="bottom_nav_background">#FFFFFF</color> <!-- 바텀네비 바 배경 -->
+    <!-- Background & Surface -->
+    <color name="background_default">#F9F8F3</color>    <!-- 앱 배경 -->
+
+    <!-- Grayscale (기본 텍스트 등) -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <color name="background_dark">#1E1E1B</color>
+    <color name="surface_dark">#2C2C29</color>
+    <color name="surface_light_dark">#353532</color>
+
+
 </resources>

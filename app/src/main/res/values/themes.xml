@@ -1,16 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Bottam_ex" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <!-- 기존 색상 설정 유지 -->
+        <item name="colorPrimary">@color/green_primary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/background_default</item>
+        <item name="colorSurface">@color/white</item>
+
+        <!-- Text Style 연결 -->
+
+        <!-- Global font (optional if already set elsewhere) -->
+        <!-- 텍스트 스타일 지정: 모두 단일 폰트 사용 -->
+        <item name="textAppearanceBodyLarge">@style/CustomTextAppearance</item>
+        <item name="textAppearanceBodyMedium">@style/CustomTextAppearance</item>
+        <item name="textAppearanceBodySmall">@style/CustomTextAppearance</item>
+        <item name="textAppearanceHeadlineMedium">@style/CustomTextAppearance</item>
+        <item name="textAppearanceTitleLarge">@style/CustomTextAppearance</item>
+        <item name="android:fontFamily">@font/nanum_square_round_r</item>
+        <item name="android:navigationBarColor">@color/white</item>
     </style>
+
 </resources>
+
+

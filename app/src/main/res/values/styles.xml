@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/styles.xml -->
+<resources>
+    <style name="CustomTextAppearance" parent="Theme.Material3.DayNight">
+        <item name="fontFamily">@font/nanum_square_round_r</item>  <!-- 레귤러로 예시 -->
+    </style>
+
+    <style name="HeadlineText" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/nanum_square_round_b</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BodyText" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/nanum_square_round_r</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+
+
+
+    <style name="Theme.Fab_Bottom_app_bar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#0F9D58</item>
+        <item name="colorPrimaryVariant">#0F9D58</item>
+        <item name="colorOnPrimary">#000</item>
+    </style>
+
+    <style name="BottomNavTextLarge" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>        <!-- 크기 증가 -->
+        <item name="android:textStyle">bold</item>       <!-- 굵게 -->
+        <item name="android:lineSpacingExtra">-10dp</item>
+    </style>
+
+</resources>

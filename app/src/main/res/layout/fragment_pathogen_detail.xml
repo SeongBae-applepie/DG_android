@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView android:id="@+id/cropNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="작물명"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/sickNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="병명"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/virusNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="병원체명"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/virusGensText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="속명"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/virusSpcsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="종명"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/virusGroupText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="분류군"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/virusAuthorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="명명자"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/virusRelateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="관련성"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/virusCharText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="특징"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/qrantText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="검역정보"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/remark1Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비고1"
+            android:paddingBottom="8dp"/>
+
+        <TextView android:id="@+id/remark2Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비고2"
+            android:paddingBottom="8dp"/>
+    </LinearLayout>
+</ScrollView>

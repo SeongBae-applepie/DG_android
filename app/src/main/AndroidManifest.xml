@@ -37,6 +37,10 @@
             android:exported="true"/>
 
         <activity
+            android:name=".main.dashboard.DetailActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -50,3 +54,4 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
+

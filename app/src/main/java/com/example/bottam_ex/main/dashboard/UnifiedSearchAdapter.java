@@ -1,6 +1,7 @@
 package com.example.bottam_ex.main.dashboard;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class UnifiedSearchAdapter extends RecyclerView.Adapter<UnifiedSearchAdap
         TextView cropText, korText, oprText, divText;
         ImageView imageView;
 
+
         public ViewHolder(View view) {
             super(view);
             cropText = view.findViewById(R.id.cropText);
@@ -34,8 +36,14 @@ public class UnifiedSearchAdapter extends RecyclerView.Adapter<UnifiedSearchAdap
             oprText = view.findViewById(R.id.oprText);
             divText = view.findViewById(R.id.divText);
             imageView = view.findViewById(R.id.imageView);
+
+
         }
+
+
     }
+
+
 
     @NonNull
     @Override
@@ -52,6 +60,24 @@ public class UnifiedSearchAdapter extends RecyclerView.Adapter<UnifiedSearchAdap
         holder.oprText.setText("영문명: " + info.oprName);
         holder.divText.setText("구분: " + info.divName);
         Glide.with(holder.imageView.getContext()).load(info.thumbImg).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(v -> {
+            Log.d("holder_itemView","OnClickListener");
+            if (listener != null) {
+                listener.onItemClick(info);
+            }
+        });
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(UnifiedSearchInfo item);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override

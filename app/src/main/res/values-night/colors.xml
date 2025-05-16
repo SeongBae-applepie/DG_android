@@ -1,0 +1,11 @@
+<resources>
+    <color name="background_dark">#1E1E1B</color>
+    <color name="surface_dark">#2C2C29</color>
+    <color name="surface_light_dark">#454541</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="green_deep">#2D5030</color> <!-- 진한 녹색 -->
+    <color name="background_default">#1E1E1B</color> <!-- fragment 배경 어둡게 -->
+    <color name="bottom_nav_background">#2C2C29</color> <!-- 바텀네비 바 어두운 회색 -->
+</resources>
+
