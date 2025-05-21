@@ -16,6 +16,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendVerificationEmail_memo(to, code) {
+  
   const mailOptions = {
     from: `"MEMODRO" <no-reply@aidoctorgreen.com>`,
     to,
