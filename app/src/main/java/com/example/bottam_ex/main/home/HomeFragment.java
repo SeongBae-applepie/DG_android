@@ -155,8 +155,6 @@ public class HomeFragment extends Fragment {
                 }
                 rd.close();
 
-                Log.d("WeatherAlertAPI", "응답 결과: " + result.toString());
-
                 JSONObject root = new JSONObject(result.toString());
                 if (root.has("data")) {
                     JSONArray items = root.getJSONArray("data");
@@ -167,7 +165,6 @@ public class HomeFragment extends Fragment {
                         String region = obj.optString("REG_KO", "지역미상");
                         String wrn = obj.optString("WRN", "특보");
                         String lvl = obj.optString("LVL", "주의보");
-
 
                         String title = region + " " + wrn + " (" + lvl + ")";
                         alertList.add(new AlertItem(lvl, title, "weather"));
