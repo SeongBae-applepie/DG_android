@@ -40,7 +40,7 @@ public class DiseaseImageAdapter extends RecyclerView.Adapter<DiseaseImageAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.disease_image_item, parent, false);
+                .inflate(R.layout.item_disease_image, parent, false);
         return new ViewHolder(view);
     }
 
